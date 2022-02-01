@@ -11,6 +11,7 @@ import (
 func (g *Game) Control(r rune, move *speculative) {
 	before := g.Field
 	act := false
+	bomb := false
 	switch r {
 	case 'w':
 		g.Up(move)
@@ -26,6 +27,7 @@ func (g *Game) Control(r rune, move *speculative) {
 		act = true
 	case ' ':
 		g.Space(move)
+		bomb = true
 	case 27:
 		g.Esc()
 	default:
@@ -35,7 +37,7 @@ func (g *Game) Control(r rune, move *speculative) {
 		g.Move += 1
 	}
 
-	if before == move.upRes && before == move.downRes && before == move.leftRes && before == move.rightRes && g.Bomb == 0 {
+	if before == move.upRes && before == move.downRes && before == move.leftRes && before == move.rightRes && g.Bomb == 0 && (!bomb && (before == g.Field)) {
 		g.GameOver()
 	} else if g.checkState() {
 		g.GameClear()
