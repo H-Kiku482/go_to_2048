@@ -23,11 +23,12 @@ func (g *Game) String() string {
 	for i := 0; i < g.Bomb; i++ {
 		screenStr += "*"
 	}
-	screenStr += "   "
 	return screenStr + "\n\n"
 }
 
 func (g *Game) RenderScreen() {
+	spc := "                            "
+	fmt.Print("\033[7A" + spc + "\n" + spc + "\n" + spc + "\n" + spc + "\n" + spc + "\n" + spc + "\n" + spc + "\n")
 	fmt.Print("\033[7A", g, "\r")
 }
 
@@ -59,7 +60,7 @@ func InitGame() *Game {
 	g.Movable = true
 	g.newBlock()
 	g.newBlock()
-	fmt.Print("\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\r")
 	return g
 }
 
@@ -87,5 +88,6 @@ func (g *Game) InitGame() {
 	g.Field[3][3] = 0
 	g.newBlock()
 	g.newBlock()
+	fmt.Print("\n\n\n\n\n\n\n\n")
 	g.RenderScreen()
 }
